@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
@@ -7,12 +8,10 @@ const UserModel = require('../models/userModel');
 
 const router = express.Router();
 
-const uploader = multer({
-   dest: __dirname + '/../public/uploads/'
-});
+const uploader = require('../configs/multer');
 
 
-router.post('/api/signup', (req, res, next) => {
+router.post('/api/signup',uploader.single('picture'), (req, res, next) => {
     if (!req.body.name || !req.body.password) {
         // 400 for client errors (user needs to fix something)
         res.status(400).json({ message: 'Need both email and password 💩' });
@@ -45,17 +44,43 @@ router.post('/api/signup', (req, res, next) => {
             base64: req.body.base64
           });
 
+          if(req.file){
+            // const base64Data = req.file;
+            // console.log('writing file...', base64Data);
+            // console.log('__dirname: ', __dirname);
+            // fs.writeFile("/uploads/out.png", base64Data, 'base64', function(err) {
+            //     if (err) console.log(err);
+            //     fs.readFile("/uploads/out.png", function(err, data) {
+            //         if (err) throw err;
+            //         console.log('reading file...', data.toString('base64'));
+            //         res.send(data);
+            //     });
+            // });
+            // console.log('req.file from auth.js is: ',req.file);
+            // newUser.photoUrl = '/uploads/' + req.file.filename;
+          }
+
           console.log(newUser);
 
           newUser.save((err) => {
-              if (err) {
+              //error from the database
+              if (err && newUser.errors === undefined) {
                 res.status(500).json({ message: '500: server fail while saving' });
+                return;
+              }
+
+              //validation error while saving
+              if(err,newUser.errors){
+                res.status(400).json({
+                  nameError: newUser.errors.name,
+                  passwordError: newUser.errors.encryptedPassword,
+                  photoError: newUser.errors.photoUrl
+                });
                 return;
               }
 
               // Automatically logs them in after the sign up
               // (req.login() is defined by passport)
-
               req.login(newUser, (err) => {
                   if (err) {
                     console.log(err);
