@@ -1,10 +1,15 @@
 const express = require('express');
+const multer = require('multer');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 const UserModel = require('../models/userModel');
 
 const router = express.Router();
+
+const uploader = multer({
+   dest: __dirname + '/../public/uploads/'
+});
 
 
 router.post('/api/signup', (req, res, next) => {
@@ -181,6 +186,7 @@ router.patch('/api/newalarm',(req,res,next)=>{
   );
 
 });
+
 
 
 module.exports = router;

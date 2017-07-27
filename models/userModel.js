@@ -33,6 +33,9 @@ const UserModel = mongoose.model(
         },
         alarmCreatedAt:{
           type:Date
+        },
+        soundSet:{
+          type:String
         }
 
       }
