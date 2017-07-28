@@ -197,10 +197,15 @@ router.patch('/api/newalarm',(req,res,next)=>{
 
   UserModel.findByIdAndUpdate(req.body.id,
     {
+      $push:
+      {
           currentAlarm:{
-            timeSet: req.body.alarm,
-            alarmCreatedAt: req.body.now
+            timeSet: req.body.timeSet,
+            alarmCreatedAt: req.body.alarmCreatedAt,
+            soundSet: req.body.soundSet,
+            $slice: -8
           }
+      }
     },
     (err,updatedUser)=>{
       if(err){

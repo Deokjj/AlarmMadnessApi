@@ -26,19 +26,20 @@ const UserModel = mongoose.model(
         type:String,
         default: ''
       },
-      currentAlarm: {
-
-        timeSet:{
-          type:Date
-        },
-        alarmCreatedAt:{
-          type:Date
-        },
-        soundSet:{
-          type:String
+      currentAlarm: [
+        {
+          timeSet:{
+            type: String
+          },
+          alarmCreatedAt:{
+            type: String
+          },
+          soundSet:{
+            type:String
+          }
         }
 
-      }
+      ]
     },
     { //2nd arg - optional
       timestamps: true
