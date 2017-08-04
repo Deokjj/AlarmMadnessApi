@@ -217,6 +217,26 @@ router.patch('/api/newalarm',(req,res,next)=>{
 
 });
 
+router.patch('/api/deletealarm',(req,res,next)=>{
+
+  UserModel.findByIdAndUpdate(req.body.id,
+    {
+      $pull:
+      {
+        currentAlarm:{
+          timeSet: req.body.timeSet
+        }
+      }
+    },
+    (err,updatedUser)=>{
+      if(err){
+        res.status(500).json({message: 'serverfailed'});
+      }
+      res.status(200).json(updatedUser);
+    }
+  );
+});
+
 
 
 module.exports = router;
