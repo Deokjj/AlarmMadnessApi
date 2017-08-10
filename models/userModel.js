@@ -27,6 +27,7 @@ const UserModel = mongoose.model(
         default: ''
       },
       currentAlarm: [
+
         {
           timeSet:{
             type: String
@@ -35,7 +36,8 @@ const UserModel = mongoose.model(
             type: String
           },
           soundSet:{
-            type:String
+            title:{type: String},
+            id:{type: String}
           }
         }
 

@@ -202,7 +202,10 @@ router.patch('/api/newalarm',(req,res,next)=>{
           currentAlarm:{
             timeSet: req.body.timeSet,
             alarmCreatedAt: req.body.alarmCreatedAt,
-            soundSet: req.body.soundSet,
+            soundSet: {
+              id: req.body.soundSet,
+              title: req.body.title
+            },
             $slice: -8
           }
       }
