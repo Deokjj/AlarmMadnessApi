@@ -14,10 +14,6 @@ const UserModel = mongoose.model(
         type:String,
         required:true
       },
-      base64:{
-        type:String,
-        default:''
-      },
       photoUrl:{
         type:String,
         default:''

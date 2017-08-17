@@ -8,10 +8,10 @@ const UserModel = require('../models/userModel');
 
 const router = express.Router();
 
-const uploader = require('../configs/multer');
+// const uploader = require('../configs/multer');
 
 
-router.post('/api/signup',uploader.single('picture'), (req, res, next) => {
+router.post('/api/signup', (req, res, next) => {
     if (!req.body.name || !req.body.password) {
         // 400 for client errors (user needs to fix something)
         res.status(400).json({ message: 'Need both email and password 💩' });
@@ -41,24 +41,8 @@ router.post('/api/signup',uploader.single('picture'), (req, res, next) => {
           const newUser = new UserModel({
             name: req.body.name,
             encryptedPassword: scrambledPassword,
-            base64: req.body.base64
+            photoUrl: req.body.photoUrl
           });
-
-          if(req.file){
-            // const base64Data = req.file;
-            // console.log('writing file...', base64Data);
-            // console.log('__dirname: ', __dirname);
-            // fs.writeFile("/uploads/out.png", base64Data, 'base64', function(err) {
-            //     if (err) console.log(err);
-            //     fs.readFile("/uploads/out.png", function(err, data) {
-            //         if (err) throw err;
-            //         console.log('reading file...', data.toString('base64'));
-            //         res.send(data);
-            //     });
-            // });
-            // console.log('req.file from auth.js is: ',req.file);
-            // newUser.photoUrl = '/uploads/' + req.file.filename;
-          }
 
           console.log(newUser);
 

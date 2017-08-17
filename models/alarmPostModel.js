@@ -6,11 +6,11 @@ const AlarmPostModel = mongoose.model(
 
     { //1st arg - structure object
       timeSet: {
-        type:Date,
+        type: String,
         require: true
       },
       alarmCreatedAt : {
-        type:Date,
+        type: String,
         required:true
       },
       user:{
@@ -18,19 +18,11 @@ const AlarmPostModel = mongoose.model(
         required: true,
         ref:'User'
       },
-      base64:[
-        {
-          type:String,
-          default: ''
-        }
-      ],
-      photoUrl:[
-        {
-          type:String,
-          default: ''
-        }
-      ],
-      youtubeUrl:{
+      photoUrl:{
+        type:String,
+        default: ''
+      },
+      youtubeKey:{
         type:String,
         default: ''
       },
