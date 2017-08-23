@@ -1,14 +1,10 @@
 const express = require('express');
-const fs = require('fs');
-const multer = require('multer');
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 
 const UserModel = require('../models/userModel');
 
 const router = express.Router();
-
-// const uploader = require('../configs/multer');
 
 
 router.post('/api/signup', (req, res, next) => {

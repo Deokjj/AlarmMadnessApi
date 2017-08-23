@@ -7,37 +7,63 @@ const AlarmPostModel = mongoose.model(
     { //1st arg - structure object
       timeSet: {
         type: String,
-        require: true
+        default: ''
       },
       alarmCreatedAt : {
         type: String,
-        required:true
+        default:''
       },
-      user:{
+      userId:{
         type: mongoose.Schema.Types.ObjectId,
+        // type: String,
         required: true,
         ref:'User'
       },
+      userName:{
+        type: String,
+        required: true
+      },
+      emoji:{
+        type: String,
+        required: true
+      },
       photoUrl:{
         type:String,
-        default: ''
+        required: true
       },
-      youtubeKey:{
-        type:String,
-        default: ''
+      soundSet:{
+        title: {
+          type: String,
+          default:''
+        },
+        id: {
+          type: String,
+          default:''
+        }
       },
       comments: [
         {
-          user: {
+          userId: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref:'User'
           },
+          userName:{
+            type: String
+          },
+          photoUrl:{
+            type: String
+          },
           comment: {
             type: String
+          },
+          _id: {
+            type: String
+          },
+          createdAt:{
+            type: Date
           }
-
-        }
+        },
       ]
 
     },
