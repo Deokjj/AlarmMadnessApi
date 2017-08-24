@@ -36,7 +36,7 @@ router.post('/api/newpost',(req,res,next)=>{
 });
 
 router.get('/api/loadposts',(req,res,nexy)=>{
-  AlarmPostModel.find((err,postArr)=>{
+  AlarmPostModel.find({},null,{sort: {createdAt: 1}},(err,postArr)=>{
     if(err){
       res.status(500).json(err);
     }
@@ -47,6 +47,8 @@ router.get('/api/loadposts',(req,res,nexy)=>{
 router.get('/api/loadposts/:userId',(req,res,next)=>{
   AlarmPostModel.find(
     {userId: req.params.userId},
+    null,
+    {sort: {createdAt: 1}},
     (err,postArr)=>{
     if(err){
       res.status(500).json(err);
